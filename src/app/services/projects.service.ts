@@ -70,10 +70,11 @@ export class ProjectsService {
 
   ];
 
+//************************************************************ 
   getProjects() {
     return this.projects;
   }
-
+//************************************************************ 
   getProjectById(id: number): Project {
     let project = this.projects.find(project => project.id === id);
 
@@ -82,4 +83,25 @@ export class ProjectsService {
     }
     return project;
    }
+
+//************************************************************ 
+   getProjectsByFilter(filterTags: Tag[]){
+    let filteredProjects: Project[] = [];
+
+    this.projects.forEach(project => {
+      let foundAll = true;
+      filterTags.forEach(filterTag => {
+        if(project.tags.includes(filterTag) == false){
+          foundAll = false; 
+        }
+      });
+      if(foundAll){
+        filteredProjects.push(project)
+      }
+    });
+    return filteredProjects;
+
+   }
+
+//************************************************************ 
 }
